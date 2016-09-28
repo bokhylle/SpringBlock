@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>QSpring.qml</file>
+        <file>BlockMenu.qml</file>
+        <file>QNode.qml</file>
+        <file>SpringMenu.qml</file>
+        <file>MessageBox.qml</file>
+        <file>SliderMenu.qml</file>
+        <file>DragMultipleObjects.qml</file>
+    </qresource>
+</RCC>
