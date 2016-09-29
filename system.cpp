@@ -22,3 +22,15 @@ void System::addQSpring(Spring *spring)
     cout << "Added spring number " << m_springs.size() << " in cpp" <<  endl;
 
 }
+
+void System::setScreenCoordinatesFromLocalCoordinates(QPointF origoInScreenCoordinates, QPointF unitInScreenCoordinates){
+
+    for(unsigned int i = 0; i<m_nodes.size(); i++){
+
+        double x = m_nodes[i]->xLocal()*(unitInScreenCoordinates.x()-origoInScreenCoordinates.x())+origoInScreenCoordinates.x();
+        double y = m_nodes[i]->yLocal()*(unitInScreenCoordinates.y()-origoInScreenCoordinates.y())+origoInScreenCoordinates.y();
+        m_nodes[i]->setX(x);
+        m_nodes[i]->setY(y);
+    }
+
+}

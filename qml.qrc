@@ -8,5 +8,6 @@
         <file>MessageBox.qml</file>
         <file>SliderMenu.qml</file>
         <file>DragMultipleObjects.qml</file>
+        <file>PlotWindow.qml</file>
     </qresource>
 </RCC>

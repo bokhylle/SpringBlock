@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include <QObject>
+#include <QPointF>
 using namespace std;
 
 class System: public QObject
@@ -12,6 +13,7 @@ public:
     System();
     Q_INVOKABLE void addQNode(class Node *node);
     Q_INVOKABLE void addQSpring(class Spring *spring);
+    Q_INVOKABLE void setScreenCoordinatesFromLocalCoordinates(QPointF origoInScreenCoordinates, QPointF unitInScreenCoordinates);
 
 public slots:
 

@@ -9,6 +9,8 @@ ListView {
         right: parent.right
         top: parent.top
         bottom: parent.bottom
+        topMargin: 10
+        leftMargin: 10
     }
     width: 250
 
@@ -17,6 +19,7 @@ ListView {
         Row{
             Label{
                 text: "Spring options"
+                font.bold: true
             }
         }
 

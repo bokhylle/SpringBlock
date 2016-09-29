@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.3
 
 
 Rectangle {
+    id: box
     anchors {
         right: parent.right
         bottom: parent.bottom
@@ -14,6 +15,7 @@ Rectangle {
     color: "white"
     border.color: "black"
     property alias text: message.text
+    property alias messageboxVisible: box.visible
 
     Text{
         id: message

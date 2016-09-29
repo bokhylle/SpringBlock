@@ -2,6 +2,7 @@ import QtQuick 2.5
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
+import QtCharts 2.1
 import System 1.0
 import Node 1.0
 import Spring 1.0
@@ -36,7 +37,7 @@ ApplicationWindow {
         signal buttonClick()
         onButtonClick: {
             var component = Qt.createComponent("QNode.qml");
-            var node = component.createObject(root, {"x": Math.random()*200, "y": Math.random()*200, "mass": 4})
+            var node = component.createObject(plotwindow, {"x": 100, "y": 100, "mass": 4})
             if (node == null) {
                 // Error Handling
                 console.log("Error creating object")
@@ -53,7 +54,6 @@ ApplicationWindow {
         }
     }
 
-
     Rectangle {
         id: createSpring
         width: 150; height: 75
@@ -67,7 +67,7 @@ ApplicationWindow {
         signal buttonClick()
         onButtonClick: {
             var component = Qt.createComponent("QSpring.qml");
-            var spring = component.createObject(root)
+            var spring = component.createObject(plotwindow ,{"x": Math.random()*200, "y": Math.random()*200})
             if (spring == null) {
                 // Error Handling
                 console.log("Error creating object")
@@ -107,7 +107,6 @@ ApplicationWindow {
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
         }
-
     }
 
     Rectangle {
@@ -130,8 +129,6 @@ ApplicationWindow {
         }
     }
 
-
-
     Rectangle {
         id: clearDisconnectedSprings
         width: 150; height: 75
@@ -140,7 +137,7 @@ ApplicationWindow {
         border.color: "black"
         Text{
             anchors.centerIn: parent
-            text: "Clear disconnected springs"
+            text: "Clear disconnected \nsprings"
         }
         signal buttonClick()
         onButtonClick: {}
@@ -152,16 +149,26 @@ ApplicationWindow {
         }
     }
 
-    BlockMenu{
-        id: blockmenu
+    Rectangle{
+        id:rightmenu
+        anchors {
+            right: parent.right
+            top: parent.top
+            bottom: parent.bottom
+        }
+        width: 150
+        color: "lightblue"
+        border.color: "black"
     }
 
-    SpringMenu{
-        id: springmenu
+    PlotWindow{
+        id: plotwindow
     }
+
 
     MessageBox{
         id: messagebox
+        messageboxVisible: false
     }
 
     SliderMenu{
@@ -173,11 +180,22 @@ ApplicationWindow {
         messagebox.text = message
         if(message!=""){
             messagebox.color = "red"
+            messagebox.messageboxVisible = true
         }else{
             messagebox.color = "white"
+            messagebox.messageboxVisible = false
         }
     }
 
 
+    BlockMenu{
+        id: blockmenu
+        anchors.fill: rightmenu
+    }
+
+    SpringMenu{
+        id: springmenu
+        anchors.fill: rightmenu
+    }
 
 }

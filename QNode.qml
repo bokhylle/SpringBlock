@@ -8,15 +8,18 @@ import Spring 1.0
 
 
 Node {
+
     id: node
     color: "gray"
     width: 10
     height: 10
     z: 2
-
+    property var nodePosition: plotwindow.mapToValue(Qt.point(x,y))
+    xLocal: nodePosition.x
+    yLocal: nodePosition.y
     borderColor: "black"
     borderWidth: 2
-    //anchors.centerIn: parent
+    transform: Translate { x: -width/2; y: -width/2}
 
     Drag.active: dragArea.drag.active
     Drag.hotSpot.x: 0
@@ -25,7 +28,7 @@ Node {
     MouseArea {
         id: dragArea
         onClicked: {
-            console.log(root.mode)
+            console.log(x)
             if(root.mode==="selectSpringParent1" || root.mode==="selectSpringParent2") {
                 root.selectedSpring.setSpringParent(node)
             } else {
@@ -36,6 +39,16 @@ Node {
 
         anchors.fill: parent
         drag.target: parent
+        drag.minimumX: 0
+        drag.minimumY: 0
+        drag.maximumX: plotwindow.width-node.width
+        drag.maximumY: plotwindow.height-node.height
+    }
+
+    function windowHandler(){
+        var tmp = plotwindow.mapToPosition(nodePosition)
+        x = tmp.x
+        y = tmp.y
     }
 
 }

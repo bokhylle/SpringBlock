@@ -25,21 +25,21 @@ void Spring::paint(QPainter *painter){
         x2 = m_connection2->x() - m_connection1->x();
         y2 = m_connection2->y() - m_connection1->y();
         color = m_colorAttached;
-        setX(m_connection1->x() + m_connection1->width()/2);
-        setY(m_connection1->y() + m_connection1->height()/2);
+        setX(m_connection1->x());
+        setY(m_connection1->y());
 
     }else if(m_connection1==nullptr && m_connection2==nullptr){
         color = m_colorDetached;
-        setX(m_initialX);
-        setY(m_initialY);
+//        setX(m_initialX);
+//        setY(m_initialY);
     }else if(m_connection1==nullptr){
         color = m_colorDetached;
-        setX(m_connection2->x() + m_connection2->width()/2);
-        setY(m_connection2->y() + m_connection2->height()/2);
+        setX(m_connection2->x());
+        setY(m_connection2->y());
     }else{
         color = m_colorDetached;
-        setX(m_connection1->x() + m_connection1->width()/2);
-        setY(m_connection1->y() + m_connection1->height()/2);
+        setX(m_connection1->x());
+        setY(m_connection1->y());
     }
 
     double angle = (atan2(y2,x2)/(M_PI)*180);

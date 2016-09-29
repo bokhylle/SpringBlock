@@ -10,6 +10,8 @@ Window{
 
     property var nx
     property var ny
+    property var lx
+    property var ly
 
     title: "Initialize slider"
     width: 300
@@ -79,24 +81,62 @@ Window{
         }
     }
 
+    //Lx
+    Item{
+        id: setLx
+        anchors.top: setNy.bottom
+        height: 25
+        Text{
+            id: lx_text
+            width: 100
+            font.pixelSize: fontSizeText
+            text: "Ly: "
+        }
+        TextField{
+            font.pixelSize: fontSizeInput
+            id: lx_input
+            width: 100
+            height: 25
+            anchors.left: lx_text.right
+            onTextChanged:{
+                lx = parseFloat(text,0)
+            }
+        }
+        Text{
+            id: lx_units
+            font.pixelSize: fontSizeText
+            anchors.left: lx_input.right
+            text: "[]"
+        }
+    }
+
+
+
+
     //Initialize
     Item{
-        anchors.top: setNy.bottom
+        anchors.top: setLx.bottom
         Button{
             text: "Create slider"
             onClicked: {
 
-                var dx = 15
-                var dy = 15
-                var x0 = 150
+                var dx = lx/(nx-1)
+                ly = ny/nx*lx
+                var dy = ly/(ny-1)
+                var x0 = 0
                 var y0 = 0
+
+                var origo = plotwindow.mapToPosition(Qt.point(0,0))
+                var unit = plotwindow.mapToPosition(Qt.point(1.0,1.0))
 
                 //Set up nodes
                 var nodelist = new Array(nx*ny)
                 for(var ix = 0; ix<nx; ix++){
                     for(var iy = 0; iy<ny; iy++){
                         var component = Qt.createComponent("QNode.qml");
-                        var node = component.createObject(root,{"x": (ix+1)*dx + x0, "y": (iy+1)*dy + y0})
+                        var xLocalTmp = (ix)*dx + x0
+                        var yLocalTmp = (iy)*dy + y0
+                        var node = component.createObject(plotwindow,{"x": xLocalTmp*(unit.x-origo.x)+origo.x, "y": yLocalTmp*(unit.y-origo.y)+origo.y})
                         var ind = ix + nx*iy
                         nodelist[ind] = node
                         if (node == null) {// Error Handling
@@ -113,7 +153,7 @@ Window{
                     for(var ix = 0; ix<nx; ix++){
                         for(var iy = 0; iy<ny-1; iy++){
                             var component = Qt.createComponent("QSpring.qml");
-                            var spring = component.createObject(root)
+                            var spring = component.createObject(plotwindow)
                             if (spring == null) {// Error Handling
                                 console.log("Error creating object")
                                 return
@@ -132,7 +172,7 @@ Window{
                     for(var ix = 0; ix<nx-1; ix++){
                         for(var iy = 0; iy<ny; iy++){
                             var component = Qt.createComponent("QSpring.qml");
-                            var spring = component.createObject(root)
+                            var spring = component.createObject(plotwindow)
                             if (spring == null) {// Error Handling
                                 console.log("Error creating object")
                                 return
@@ -151,7 +191,7 @@ Window{
                     for(var ix = 0; ix<nx-1; ix++){
                         for(var iy = 0; iy<ny-1; iy++){
                             var component = Qt.createComponent("QSpring.qml");
-                            var spring = component.createObject(root)
+                            var spring = component.createObject(plotwindow)
                             if (spring == null) {// Error Handling
                                 console.log("Error creating object")
                                 return
@@ -170,7 +210,7 @@ Window{
                     for(var ix = 1; ix<nx; ix++){
                         for(var iy = 0; iy<ny-1; iy++){
                             var component = Qt.createComponent("QSpring.qml");
-                            var spring = component.createObject(root)
+                            var spring = component.createObject(plotwindow)
                             if (spring == null) {// Error Handling
                                 console.log("Error creating object")
                                 return

@@ -38,6 +38,10 @@ Spring {
                 console.log("parent selected twice, ignoring")
                 mode = "selectSpringParent2"
                 writemessage("A spring cannot be connected to the same node twice. Select spring parent 2")
+            }else if(selectedSpring.connection1.isConnectedToNode(node)){
+                console.log("connection already exists, ignoring")
+                mode = "selectSpringParent2"
+                writemessage("The nodes are already connected by a spring. Select spring parent 2")
             }else{
                 mode = ""
                 console.log("addingParent2")
