@@ -6,20 +6,26 @@ import QtCharts 2.1
 
 ChartView{
 
-    property var xCursorOnClick
+    property var windowRatio: 1
     property var yCursorOnClick
-    anchors.left: clearDisconnectedSprings.right
-    anchors.right: rightmenu.left
-    anchors.top: parent.top
-    anchors.bottom: parent.bottom
+
     theme: ChartView.ChartThemeBlueIcy
     antialiasing: true
     axes: [axisX, axisY]
     legend.visible: false
+    onWidthChanged: {
+        windowRatio = height/width
+        windowHandler()
+    }
+    onHeightChanged:{
+        windowRatio = height/width
+        windowHandler()
+    }
+    Component.onCompleted: {
+        windowRatio = height/width
+        windowHandler()
+    }
 
-    onWidthChanged: windowHandler()
-    onHeightChanged: windowHandler()
-    Component.onCompleted: windowHandler()
     function windowHandler(){
         var origo = mapToPosition(Qt.point(0,0))
         var unit = mapToPosition(Qt.point(1.0,1.0))
@@ -38,12 +44,12 @@ ChartView{
 
     ValueAxis {
         id: axisY
-        min: -1
-        max: 1
+        min: -1*windowRatio //TODO: fix zoom bug
+        max: 1*windowRatio
         tickCount: 11
         titleText: "y (m)"
-        onMinChanged: plotwindow.windowHandler()
-        onMaxChanged: plotwindow.windowHandler()
+//        onMaxChanged: plotwindow.windowHandler()
+//        onMinChanged: plotwindow.windowHandler()
     }
 
     AreaSeries{
@@ -54,16 +60,9 @@ ChartView{
     MouseArea{
         anchors.fill: parent
         onClicked: {
-            parent.xCursorOnClick = mouse.x
-            parent.yCursorOnClick = mouse.y
             console.log(plotwindow.mapToValue(Qt.point(mouse.x,mouse.y)))
         }
-        onPressAndHold: {
-            plotwindow.zoomOut()
-            plotwindow.windowHandler()
-        }
     }
-
 
 
 }

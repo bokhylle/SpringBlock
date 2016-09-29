@@ -8,10 +8,13 @@ Window{
     property var fontSizeText: 16
     property var fontSizeInput: 14
 
+    property var x0
+    property var y0
     property var nx
     property var ny
     property var lx
     property var ly
+    property var mass
 
     title: "Initialize slider"
     width: 300
@@ -90,7 +93,7 @@ Window{
             id: lx_text
             width: 100
             font.pixelSize: fontSizeText
-            text: "Ly: "
+            text: "Lx: "
         }
         TextField{
             font.pixelSize: fontSizeInput
@@ -99,35 +102,123 @@ Window{
             height: 25
             anchors.left: lx_text.right
             onTextChanged:{
-                lx = parseFloat(text,0)
+                lx = parseFloat(text,10)
             }
         }
         Text{
             id: lx_units
             font.pixelSize: fontSizeText
             anchors.left: lx_input.right
-            text: "[]"
+            text: "[m]"
         }
     }
 
+    //Mass
+    Item{
+        id: setMass
+        anchors.top: setLx.bottom
+        height: 25
+        Text{
+            id: mass_text
+            width: 100
+            font.pixelSize: fontSizeText
+            text: "Mass: "
+        }
+        TextField{
+            font.pixelSize: fontSizeInput
+            id: mass_input
+            width: 100
+            height: 25
+            anchors.left: mass_text.right
+            onTextChanged:{
+                mass = parseFloat(text,10)
+            }
+        }
+        Text{
+            id: mass_units
+            font.pixelSize: fontSizeText
+            anchors.left: mass_input.right
+            text: "[kg]"
+        }
+    }
 
+    //x0
+    Item{
+        id: setX0
+        anchors.top: setMass.bottom
+        height: 25
+        Text{
+            id: x0_text
+            width: 100
+            font.pixelSize: fontSizeText
+            text: "x0: "
+        }
+        TextField{
+            font.pixelSize: fontSizeInput
+            id: x0_input
+            width: 100
+            height: 25
+            anchors.left: x0_text.right
+            onTextChanged:{
+                x0 = parseFloat(text,10)
+            }
+        }
+        Text{
+            id: x0_units
+            font.pixelSize: fontSizeText
+            anchors.left: x0_input.right
+            text: "[m]"
+        }
+    }
 
+    //y0
+    Item{
+        id: setY0
+        anchors.top: setX0.bottom
+        height: 25
+        Text{
+            id: y0_text
+            width: 100
+            font.pixelSize: fontSizeText
+            text: "y0: "
+        }
+        TextField{
+            font.pixelSize: fontSizeInput
+            id: y0_input
+            width: 100
+            height: 25
+            anchors.left: y0_text.right
+            onTextChanged:{
+                y0 = parseFloat(text,10)
+            }
+        }
+        Text{
+            id: y0_units
+            font.pixelSize: fontSizeText
+            anchors.left: y0_input.right
+            text: "[m]"
+        }
+    }
 
     //Initialize
     Item{
-        anchors.top: setLx.bottom
+        anchors.top: setY0.bottom
         Button{
             text: "Create slider"
             onClicked: {
 
                 var dx = lx/(nx-1)
-                ly = ny/nx*lx
+                if(nx===1){
+                    dx = 0
+                }
                 var dy = ly/(ny-1)
-                var x0 = 0
-                var y0 = 0
-
+                if(ny===1){
+                    dy = 0
+                }
+                var m = mass/(nx*ny)
                 var origo = plotwindow.mapToPosition(Qt.point(0,0))
                 var unit = plotwindow.mapToPosition(Qt.point(1.0,1.0))
+                ly = ny/nx*lx
 
                 //Set up nodes
                 var nodelist = new Array(nx*ny)
@@ -136,7 +227,7 @@ Window{
                         var component = Qt.createComponent("QNode.qml");
                         var xLocalTmp = (ix)*dx + x0
                         var yLocalTmp = (iy)*dy + y0
-                        var node = component.createObject(plotwindow,{"x": xLocalTmp*(unit.x-origo.x)+origo.x, "y": yLocalTmp*(unit.y-origo.y)+origo.y})
+                        var node = component.createObject(plotwindow,{"x": xLocalTmp*(unit.x-origo.x)+origo.x, "y": yLocalTmp*(unit.y-origo.y)+origo.y,"mass": m})
                         var ind = ix + nx*iy
                         nodelist[ind] = node
                         if (node == null) {// Error Handling

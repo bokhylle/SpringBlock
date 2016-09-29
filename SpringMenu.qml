@@ -29,7 +29,7 @@ ListView {
             }
             Label {
                 height: 20
-                //text: ""+root.selectedSpring.connection1.borderWidth.toFixed(0)
+                text: root.selectedSpring.connection1.nodeId.toFixed(0)
             }
         }
 
@@ -39,7 +39,7 @@ ListView {
             }
             Label {
                 height: 20
-                text: "lol"
+                text: root.selectedSpring.connection2.nodeId.toFixed(0)
             }
         }
 

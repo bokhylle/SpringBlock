@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
     id: box
+    z: 3
     anchors {
         right: parent.right
         bottom: parent.bottom

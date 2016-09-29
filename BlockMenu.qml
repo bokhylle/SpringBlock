@@ -12,7 +12,7 @@ ListView {
     delegate: Column {
         Row{
             Label{
-                text: "Block options"
+                text: "Node options"
                 font.bold: true
             }
             anchors.bottomMargin: 5
@@ -20,7 +20,17 @@ ListView {
 
         Row {
             Label {
-                text: "Mass: "
+                text: "ID: "
+            }
+            Label {
+                height: 20
+                text: model.modelData.nodeId.toFixed(0)
+            }
+        }
+
+        Row {
+            Label {
+                text: "mass: "
             }
             TextField {
                 height: 20

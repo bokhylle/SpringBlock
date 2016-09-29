@@ -15,8 +15,11 @@ ApplicationWindow {
     property string mode: ""
 
     visible: true
-    width: 640
-    height: 480
+    width: 1024
+    height: 768
+    minimumWidth: 480
+    minimumHeight: 320
+
     title: qsTr("Spring block")
 
     System {
@@ -24,7 +27,7 @@ ApplicationWindow {
     }
 
     Rectangle {
-        id: createNode
+        id: createnode
         width: 150; height: 75
         color: "lightblue"
         border.color: "black"
@@ -37,7 +40,7 @@ ApplicationWindow {
         signal buttonClick()
         onButtonClick: {
             var component = Qt.createComponent("QNode.qml");
-            var node = component.createObject(plotwindow, {"x": 100, "y": 100, "mass": 4})
+            var node = component.createObject(plotwindow, {"x": (Math.random()-0.5)*100+plotwindow.width/2, "y": (Math.random()-0.5)*100+plotwindow.height/2})
             if (node == null) {
                 // Error Handling
                 console.log("Error creating object")
@@ -47,7 +50,7 @@ ApplicationWindow {
         }
 
         MouseArea{
-            anchors.fill: parent //anchor all sides of the mouse area to the rectangle's anchors
+            anchors.fill: parent
             onClicked: parent.buttonClick()
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
@@ -67,7 +70,8 @@ ApplicationWindow {
         signal buttonClick()
         onButtonClick: {
             var component = Qt.createComponent("QSpring.qml");
-            var spring = component.createObject(plotwindow ,{"x": Math.random()*200, "y": Math.random()*200})
+
+            var spring = component.createObject(plotwindow ,{"x": (Math.random()-0.5)*100+plotwindow.width/2, "y": (Math.random()-0.5)*100+plotwindow.height/2})
             if (spring == null) {
                 // Error Handling
                 console.log("Error creating object")
@@ -81,7 +85,7 @@ ApplicationWindow {
         }
 
         MouseArea{
-            anchors.fill: parent //anchor all sides of the mouse area to the rectangle's anchors
+            anchors.fill: parent
             onClicked: parent.buttonClick()
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
@@ -102,7 +106,7 @@ ApplicationWindow {
         signal buttonClick()
         onButtonClick: slidermenu.open()
         MouseArea{
-            anchors.fill: parent //anchor all sides of the mouse area to the rectangle's anchors
+            anchors.fill: parent
             onClicked: parent.buttonClick()
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
@@ -122,7 +126,7 @@ ApplicationWindow {
         signal buttonClick()
         onButtonClick: {}
         MouseArea{
-            anchors.fill: parent //anchor all sides of the mouse area to the rectangle's anchors
+            anchors.fill: parent
             onClicked: parent.buttonClick()
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
@@ -142,7 +146,7 @@ ApplicationWindow {
         signal buttonClick()
         onButtonClick: {}
         MouseArea{
-            anchors.fill: parent //anchor all sides of the mouse area to the rectangle's anchors
+            anchors.fill: parent
             onClicked: parent.buttonClick()
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
@@ -163,6 +167,10 @@ ApplicationWindow {
 
     PlotWindow{
         id: plotwindow
+        anchors.left: clearDisconnectedSprings.right
+        anchors.right: rightmenu.left
+        anchors.top: parent.top
+        anchors.bottom: zoomoptions.top
     }
 
 
@@ -187,6 +195,16 @@ ApplicationWindow {
         }
     }
 
+
+    ZoomOptions{
+        id: zoomoptions
+        anchors {
+            right: plotwindow.right
+            bottom: parent.bottom
+            left: plotwindow.left
+        }
+        height: 30
+    }
 
     BlockMenu{
         id: blockmenu

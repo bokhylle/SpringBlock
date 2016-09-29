@@ -12,6 +12,7 @@ System::System()
 
 void System::addQNode(Node *node)
 {
+    node->setNodeId(m_nodes.size());
     m_nodes.push_back(node);
     cout << "Added node number " << m_nodes.size() << " in cpp" << endl;
 }

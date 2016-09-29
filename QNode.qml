@@ -2,7 +2,6 @@ import QtQuick 2.5
 import QtQuick.Window 2.2
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
-import System 1.0
 import Node 1.0
 import Spring 1.0
 
@@ -20,7 +19,7 @@ Node {
     borderColor: "black"
     borderWidth: 2
     transform: Translate { x: -width/2; y: -width/2}
-
+    isSelected: false
     Drag.active: dragArea.drag.active
     Drag.hotSpot.x: 0
     Drag.hotSpot.y: 0
@@ -28,12 +27,20 @@ Node {
     MouseArea {
         id: dragArea
         onClicked: {
-            console.log(x)
             if(root.mode==="selectSpringParent1" || root.mode==="selectSpringParent2") {
                 root.selectedSpring.setSpringParent(node)
-            } else {
-                root.selectedSpring = null
-                root.selectedNode = node
+            }else{
+
+                if(!isSelected){
+                    node.isSelected = true
+                    node.update()
+                    root.selectedNode = node
+                    root.selectedSpring = null
+                }else{
+                    node.isSelected = false
+                    node.update()
+                    root.selectedNode = null
+                }
             }
         }
 

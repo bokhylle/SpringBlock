@@ -9,5 +9,6 @@
         <file>SliderMenu.qml</file>
         <file>DragMultipleObjects.qml</file>
         <file>PlotWindow.qml</file>
+        <file>ZoomOptions.qml</file>
     </qresource>
 </RCC>
