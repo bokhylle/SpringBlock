@@ -23,7 +23,7 @@ Node::~Node(){
 
 void Node::paint(QPainter *painter){
 
-    QColor borderColor = m_isSelected ? "gold" : m_borderColor;
+    QColor borderColor = isSelected() ? "gold" : m_borderColor;
     QPen pen(borderColor, m_borderWidth);
     painter->setPen(pen);
     painter->setBrush(m_color);

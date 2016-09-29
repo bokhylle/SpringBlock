@@ -207,6 +207,7 @@ Window{
             text: "Create slider"
             onClicked: {
 
+                ly = ny/nx*lx
                 var dx = lx/(nx-1)
                 if(nx===1){
                     dx = 0
@@ -218,7 +219,7 @@ Window{
                 var m = mass/(nx*ny)
                 var origo = plotwindow.mapToPosition(Qt.point(0,0))
                 var unit = plotwindow.mapToPosition(Qt.point(1.0,1.0))
-                ly = ny/nx*lx
+
 
                 //Set up nodes
                 var nodelist = new Array(nx*ny)

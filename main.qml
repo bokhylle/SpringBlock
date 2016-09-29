@@ -171,6 +171,7 @@ ApplicationWindow {
         anchors.right: rightmenu.left
         anchors.top: parent.top
         anchors.bottom: zoomoptions.top
+
     }
 
 

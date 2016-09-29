@@ -14,7 +14,7 @@ public:
     Q_INVOKABLE void addQNode(class Node *node);
     Q_INVOKABLE void addQSpring(class Spring *spring);
     Q_INVOKABLE void setScreenCoordinatesFromLocalCoordinates(QPointF origoInScreenCoordinates, QPointF unitInScreenCoordinates);
-
+    Q_INVOKABLE void setSelectedOnNodesInRectangle(double x0, double y0, double width, double height);
 public slots:
 
 

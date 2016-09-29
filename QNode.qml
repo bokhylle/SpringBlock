@@ -20,6 +20,11 @@ Node {
     borderWidth: 2
     transform: Translate { x: -width/2; y: -width/2}
     isSelected: false
+
+    onIsSelectedChanged:{
+        node.update()
+    }
+
     Drag.active: dragArea.drag.active
     Drag.hotSpot.x: 0
     Drag.hotSpot.y: 0
@@ -33,12 +38,10 @@ Node {
 
                 if(!isSelected){
                     node.isSelected = true
-                    node.update()
                     root.selectedNode = node
                     root.selectedSpring = null
                 }else{
                     node.isSelected = false
-                    node.update()
                     root.selectedNode = null
                 }
             }

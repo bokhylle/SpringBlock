@@ -35,3 +35,19 @@ void System::setScreenCoordinatesFromLocalCoordinates(QPointF origoInScreenCoord
     }
 
 }
+
+void System::setSelectedOnNodesInRectangle(double x0, double y0, double width, double height){
+
+    for(unsigned int i = 0; i<m_nodes.size(); i++){
+        double x = m_nodes[i]->x();
+        double y = m_nodes[i]->y();
+        if(x>x0 && x<(x0+width) && y>y0 && y<(y0+height)){
+            m_nodes[i]->setIsSelected(true);
+            qDebug() << "set to true";
+        }else{
+            m_nodes[i]->setIsSelected(false);
+            qDebug() << "set to false";
+        }
+    }
+
+}

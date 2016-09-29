@@ -87,7 +87,6 @@ signals:
     void xLocalChanged(double xLocal);
     void yLocalChanged(double yLocal);
     void isSelectedChanged(bool isSelected);
-
     void nodeIdChanged(unsigned int nodeId);
 
 private:
