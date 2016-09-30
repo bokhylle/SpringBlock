@@ -17,10 +17,6 @@ Node::~Node(){
 
 }
 
-//void Node::setAnchor(QPointF point){
-//    m_anchor = point;
-//}
-
 void Node::paint(QPainter *painter){
 
     QColor borderColor = isSelected() ? "gold" : m_borderColor;
@@ -48,9 +44,4 @@ bool Node::isConnectedToNode(Node* node){
     }
     return false;
 
-}
-
-void Node::setAnchor(QPointF point)
-{
-    m_anchor = point;
 }

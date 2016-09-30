@@ -7,8 +7,8 @@
         <file>SpringMenu.qml</file>
         <file>MessageBox.qml</file>
         <file>SliderMenu.qml</file>
-        <file>SelectionArea.qml</file>
         <file>PlotWindow.qml</file>
         <file>ZoomOptions.qml</file>
+        <file>DragSelectedItems.qml</file>
     </qresource>
 </RCC>

@@ -25,7 +25,6 @@ public:
     ~Node();
 
     void paint(QPainter *painter);
-    void setAnchor(QPointF point);
     bool selected() const;
 
     Q_INVOKABLE void removeSpring(class Spring* spring);
@@ -95,7 +94,6 @@ private:
     QColor m_color;
     QColor m_borderColor;
     vector<class Spring *> m_springConnections;
-    QPointF m_anchor;
     double m_xLocal;
     double m_yLocal;
     bool m_isSelected;

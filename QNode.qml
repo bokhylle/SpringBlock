@@ -34,31 +34,30 @@ Node {
         onClicked: {
             if(root.mode==="selectSpringParent1" || root.mode==="selectSpringParent2") {
                 root.selectedSpring.setSpringParent(node)
-            }else{
-
-                if(!isSelected){
-                    node.isSelected = true
-                    root.selectedNode = node
-                    root.selectedSpring = null
+            }else if(mouse.button === Qt.LeftButton && mouse.modifiers & Qt.ShiftModifier){
+                if(node.isSelected){
+                    system.removeNodeFromSelection(node)
                 }else{
-                    node.isSelected = false
-                    root.selectedNode = null
+                    system.addNodeToSelection(node)
                 }
+            }else{
+                system.clearNodeSelection()
+                system.addNodeToSelection(node)
             }
         }
 
-        anchors.fill: parent
-        drag.target: parent
-        drag.minimumX: 0
-        drag.minimumY: 0
-        drag.maximumX: plotwindow.width-node.width
-        drag.maximumY: plotwindow.height-node.height
-    }
+    anchors.fill: parent
+    drag.target: parent
+    drag.minimumX: 0
+    drag.minimumY: 0
+    drag.maximumX: plotwindow.width-node.width
+    drag.maximumY: plotwindow.height-node.height
+}
 
-    function windowHandler(){
-        var tmp = plotwindow.mapToPosition(nodePosition)
-        x = tmp.x
-        y = tmp.y
-    }
+function windowHandler(){
+    var tmp = plotwindow.mapToPosition(nodePosition)
+    x = tmp.x
+    y = tmp.y
+}
 
 }

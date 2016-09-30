@@ -10,6 +10,7 @@ import Spring 1.0
 
 ApplicationWindow {
     id: root
+    color: "black"
     property Node selectedNode
     property Spring selectedSpring
     property string mode: ""
@@ -29,7 +30,7 @@ ApplicationWindow {
     Rectangle {
         id: createnode
         width: 150; height: 75
-        color: "lightblue"
+        color: "dimgrey"
         border.color: "black"
 
         Text{
@@ -61,7 +62,7 @@ ApplicationWindow {
         id: createSpring
         width: 150; height: 75
         y: 75
-        color: "lightblue"
+        color: "dimgrey"
         border.color: "black"
         Text{
             anchors.centerIn: parent
@@ -97,7 +98,7 @@ ApplicationWindow {
         id: initializeSlider
         width: 150; height: 75
         y: 150
-        color: "lightblue"
+        color: "dimgrey"
         border.color: "black"
         Text{
             anchors.centerIn: parent
@@ -117,7 +118,7 @@ ApplicationWindow {
         id: clearSystem
         width: 150; height: 75
         y: 225
-        color: "lightblue"
+        color: "dimgrey"
         border.color: "black"
         Text{
             anchors.centerIn: parent
@@ -137,7 +138,7 @@ ApplicationWindow {
         id: clearDisconnectedSprings
         width: 150; height: 75
         y: 300
-        color: "lightblue"
+        color: "dimgrey"
         border.color: "black"
         Text{
             anchors.centerIn: parent
@@ -160,9 +161,9 @@ ApplicationWindow {
             top: parent.top
             bottom: parent.bottom
         }
-        width: 150
-        color: "lightblue"
-        border.color: "black"
+        width: 185
+        color: "dimgrey"
+//        border.color: "black"
     }
 
     PlotWindow{
@@ -171,9 +172,7 @@ ApplicationWindow {
         anchors.right: rightmenu.left
         anchors.top: parent.top
         anchors.bottom: zoomoptions.top
-
     }
-
 
     MessageBox{
         id: messagebox
@@ -183,7 +182,6 @@ ApplicationWindow {
     SliderMenu{
         id: slidermenu
     }
-
 
     function writemessage(message){
         messagebox.text = message
@@ -209,12 +207,29 @@ ApplicationWindow {
 
     BlockMenu{
         id: blockmenu
-        anchors.fill: rightmenu
+        anchors.top: rightmenu.top
+        anchors.left: rightmenu.left
+        anchors.right: rightmenu.right
+        anchors.leftMargin: 10
+        anchors.topMargin: 10
     }
 
     SpringMenu{
         id: springmenu
-        anchors.fill: rightmenu
+        anchors.top: blockmenu.bottom
+        anchors.left: rightmenu.left
+        anchors.right: rightmenu.right
+        anchors.topMargin: 10
+        anchors.leftMargin: 10
+    }
+
+    DragSelectedItems{
+
+    }
+
+    Shortcut {
+        sequence: "ctrl+a"
+        onActivated: system.addAllNodesToSelection()
     }
 
 }

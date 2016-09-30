@@ -9,6 +9,8 @@ ChartView{
     property var windowRatio: 1
 
     theme: ChartView.ChartThemeBlueIcy
+//    theme: ChartView.ChartThemeDark
+//    theme: ChartView.ChartThemeHighContrast
     antialiasing: true
     axes: [axisX, axisY]
     legend.visible: false
@@ -62,10 +64,9 @@ ChartView{
         id: selectionarea
         property int initialXPos
         property int initialYPos
+
         onPressed: {
-            if (mouse.button == Qt.LeftButton && mouse.modifiers & Qt.ShiftModifier)
-            {
-                console.log("Mouse area shift-clicked !")
+            if (mouse.button === Qt.LeftButton && mouse.modifiers & Qt.ShiftModifier){
                 initialXPos = mouse.x
                 initialYPos = mouse.y
                 selectionrectangle.x = mouse.x
@@ -73,6 +74,8 @@ ChartView{
                 selectionrectangle.width = 0
                 selectionrectangle.height = 0
                 selectionrectangle.visible = true
+            }else{
+                system.clearNodeSelection()
             }
         }
 

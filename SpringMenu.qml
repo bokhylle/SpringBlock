@@ -5,14 +5,7 @@ import QtQuick.Layouts 1.3
 
 
 ListView {
-    anchors {
-        right: parent.right
-        top: parent.top
-        bottom: parent.bottom
-        topMargin: 10
-        leftMargin: 10
-    }
-    width: 250
+
 
     model: selectedSpring
     delegate: Column {

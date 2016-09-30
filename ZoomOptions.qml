@@ -6,8 +6,7 @@ import QtCharts 2.1
 
 Rectangle{
 
-    color: "white"
-
+    color: root.color
     Row{
         anchors.right: parent.right
         anchors.rightMargin: 10
